@@ -1,0 +1,9 @@
+body{
+    background-color: #263238
+}
+#app{
+    text-align: center;
+    font-family: 'Avenir', Arial, Helvetica, sans-serif;
+    color: #fff;
+    margin-top: 60px;
+}
