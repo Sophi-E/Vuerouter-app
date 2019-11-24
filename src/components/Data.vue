@@ -1,6 +1,17 @@
 <template>
   <div>
-      type: {{ type }}
+    <div
+      style="text-align: left"
+      v-for="item in items"
+      :key="item.name"
+    >
+      <ul style="border: 1px solid #bada55; margin: 20px;">
+        <li>eye's: {{ item.eye_color }}</li>
+        <li>birth-year: {{ item.birth_year }}</li>
+        <li>gender: {{ item.gender }}</li>
+        <li>har: {{ item.hair_color }}</li>
+      </ul>
+    </div>
   </div>
 </template>
 
@@ -10,24 +21,17 @@ import axios from 'axios';
 export default {
   data () {
     return {
-        type: this.$route.params.type,
-        items: []
+      type: this.$route.params.type,
+      items: []
     };
   },
 
   methods: {
-      fetchItems() {
-        //   this.items = []
-        //   let initial_ids = [1, 13, 14]
-
-        //   for( let i in initial_ids){
-        //       let id = initial_ids[i]
-        //       console.log('id', id)
-        axios.get(`https://swapi.co/api/people/`)
-        .then(res => console.log(res));
-            //   .then(json => this.items.push(json))
-            //   .catch(error => console.log(error))
-        },
+    fetchItems() {
+      Promise.all([1, 13, 14].map(id => axios.get(`https://swapi.co/api/${this.type}/${id}/`))).then(res => {
+        this.items = res.map(res => res.data);
+      });
+    },
   },
 
   mounted(){
